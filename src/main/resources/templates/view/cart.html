@@ -1,0 +1,91 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{view/layout}"
+>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+<span layout:fragment="content">
+    <!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- end breadcrumb section -->
+
+    <!-- cart -->
+	<div class="cart-section mt-150 mb-150" th:if="${notice != null}">
+			<p style="color: red; font-size: 18px; font-weight: bold; margin: 200px" th:text="${notice}"></p>
+	</div>
+	<div class="cart-section mt-100 mb-100" th:if="${notice == null}">
+		<form th:action="@{/cart/update}" method="post">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table-body-row" th:each="cart : ${carts}">
+									<td class="product-remove"><a th:href="@{/cart/delete/{id}(id=${cart.id})}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img th:src="@{'/uploads/images/'+${cart.product.image}}" alt="" style="height: 50px; width: 50px"></td>
+									<td class="product-name" th:text="${cart.product.name}"></td>
+									<td class="product-price" th:text="'$'+${cart.product.price}"></td>
+									<input name="id[]" th:value="${cart.id}" hidden>
+									<td class="product-quantity"><input type="number" th:value="${cart.quantity}" min="1" th:max="${cart.product.quantity}" name="quantity[]"></td>
+									<td class="product-total" th:text="'$'+${cart.quantity * cart.product.price}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td th:text="${total}+'$'"></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<button type="submit" style="border: none; background: #fff;"><a class="boxed-btn">Update Cart</a></button>
+							<a href="#" class="boxed-btn black">Check Out</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+    <!-- end cart -->
+</span>
+</body>
+</html>

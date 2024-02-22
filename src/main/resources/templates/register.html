@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title>Register</title>
+
+    <!-- Vendors styles-->
+    <link rel="stylesheet" href="/vendors/simplebar/css/simplebar.css">
+    <link rel="stylesheet" href="/manage/css/vendors/simplebar.css">
+    <!-- Main styles for this application-->
+    <link href="/manage/css/style.css" rel="stylesheet">
+    <!-- We use those styles to show code examples, you should remove them in your application.-->
+    <link href="/manage/css/examples.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card mb-4 mx-4">
+              <div class="card-body p-4">
+                <h1>Register</h1>
+                <p class="text-medium-emphasis">Create your account</p>
+                <form method="post" th:action="@{/register/save}" th:object="${user}">
+                  <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                    </svg></span>
+                    <input class="form-control" type="text" placeholder="Username" th:field="*{username}">
+                  </div>
+                  <p th:if="${#fields.hasErrors('username')}" class="text-danger" th:errors="*{username}"></p>
+                  <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                    </svg></span>
+                    <input class="form-control" type="text" placeholder="Email" th:field="*{email}">
+                  </div>
+                  <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                  <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                    </svg></span>
+                    <input class="form-control" type="password" placeholder="Password" th:field="*{password}">
+                  </div>
+                  <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
+                  <div class="input-group mb-4"><span class="input-group-text">
+                    <svg class="icon">
+                    </svg></span>
+                    <input class="form-control" type="password" placeholder="Repeat password" th:field="*{repeat}">
+                  </div>
+                  <p th:if="${#fields.hasErrors('repeat')}" class="text-danger" th:errors="*{repeat}"></p>
+                  <div th:if="${mess != null}" th:text="${mess}" class="alert alert-danger">
+                  </div>
+                  <button class="btn btn-block btn-success" type="submit">Create Account</button>
+                  <a class="btn btn-block btn-success" th:href="@{/login}">Login</a>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

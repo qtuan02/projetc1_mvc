@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+>
+<head layout:fragment="header">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">ADMIN</title>
+    <!-- Vendors styles-->
+    <link rel="stylesheet" th:href="@{/vendors/simplebar/css/simplebar.css}">
+    <link rel="stylesheet" th:href="@{/manage/css/vendors/simplebar.css}">
+    <!-- Main styles for this application-->
+    <link th:href="@{/manage/css/style.css}" rel="stylesheet">
+    <!-- We use those styles to show code examples, you should remove them in your application.-->
+    <link th:href="@{/manage/css/examples.css}" rel="stylesheet">
+    <link th:href="@{/vendors/@coreui/chartjs/css/coreui-chartjs.css}" rel="stylesheet">
+</head>
+<body>
+<div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+    <div class="sidebar-brand d-none d-md-flex">
+        <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+        </svg>
+        <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
+        </svg>
+    </div>
+    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin}">
+                <svg class="nav-icon">
+                    <use th:href="@{/vendors/@coreui/icons/svg/free.svg#cil-speedometer}"></use>
+                </svg>
+                Dashboard
+            </a>
+        </li>
+
+        <li class="nav-title">LIST</li>
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use th:href="@{/vendors/@coreui/icons/svg/free.svg#cil-list}"></use>
+                </svg>
+                List
+            </a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/categories}"><span class="nav-icon"></span> Categories</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/products}"><span class="nav-icon"></span> Products</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/users}"><span class="nav-icon"></span> Users</a></li>
+            </ul>
+        </li>
+
+        <li class="nav-title">EDIT</li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/addcategory}">
+                <svg class="nav-icon">
+                    <use th:href="@{/vendors/@coreui/icons/svg/free.svg#cil-plus}"></use>
+                </svg>
+                Add category
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/addproduct}">
+                <svg class="nav-icon">
+                    <use th:href="@{/vendors/@coreui/icons/svg/free.svg#cil-playlist-add}"></use>
+                </svg>
+                Add product
+            </a>
+        </li>
+    </ul>
+</div>
+<div layout:fragment="content"></div>
+</body>
+<!-- CoreUI and necessary plugins-->
+<script th:src="@{/vendors/@coreui/coreui/js/coreui.bundle.min.js}"></script>
+<script th:src="@{/vendors/simplebar/js/simplebar.min.js}"></script>
+<!-- Plugins and scripts required by this view-->
+<script th:src="@{/vendors/@coreui/chartjs/js/coreui-chartjs.js}"></script>
+<script th:src="@{/vendors/@coreui/utils/js/coreui-utils.js}"></script>
+<script>
+</script>
+</html>

@@ -1,0 +1,67 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{view/layout}"
+
+>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<span layout:fragment="content">
+    <!-- hero area -->
+    <div class="hero-area hero-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 offset-lg-2 text-center">
+                    <div class="hero-text">
+                        <div class="hero-text-tablecell">
+                            <p class="subtitle">Fresh & Organic</p>
+                            <h1>Delicious Seasonal Fruits</h1>
+                            <!-- <div class="hero-btns">
+                                <a href="shop.html" class="boxed-btn">Fruit Collection</a>
+                                <a href="contact.html" class="bordered-btn">Contact Us</a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end hero area -->
+
+    <!-- product section -->
+    <div class="product-section mt-100 mb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="section-title">
+                        <h3><span class="orange-text">Our</span> Products</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center" th:each="p : ${top3Product}">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a th:href="@{/detail/{id}(id=${p.id})}"><img th:src="@{'/uploads/images/'+${p.image}}"
+                                                               alt=""></a>
+                        </div>
+                        <h3 th:text="${p.name}"></h3>
+                        <p class="product-price" th:text="${p.price}+'$'"><span>Per Kg</span></p>
+                        <form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                            <input name="pid" th:value="${p.id}" hidden>
+                            <button type="submit" style="border: none; background: #fff"><a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
+                        </form>
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end product section -->
+</span>
+</body>
+</html>

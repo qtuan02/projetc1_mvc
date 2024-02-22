@@ -1,0 +1,76 @@
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		xmlns:sec="http://www.thymeleaf.org"
+        layout:decorate="~{view/layout}"
+>
+<head>
+    <title>Shop</title>
+</head>
+<body>
+<span layout:fragment="content">
+    <!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Shop</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- end breadcrumb section -->
+
+    <!-- products -->
+	<div class="product-section mt-100 mb-100">
+		<div class="container">
+
+			<div class="row">
+                <div class="col-md-12">
+                    <div class="product-filters">
+                        <ul>
+                            <li><a th:href="@{/shop}">All</a></li>
+                            <li th:each="c : ${categories}"><a th:href="@{/shop/{id}(id=${c.id})}" th:text="${c.name}"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+			<div class="row product-lists">
+				<div class="col-lg-4 col-md-6 text-center" th:each="p : ${products}">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a th:href="@{/detail/{id}(id=${p.id})}"><img th:src="@{'/uploads/images/'+${p.image}}" alt=""></a>
+						</div>
+						<h3 th:text="${p.name}"></h3>
+                        <p class="product-price" th:text="${p.price}+'$'"><span>Per Kg</span></p>
+						<form th:action="@{/cart/add}" method="post" sec:authorize="isAuthenticated()">
+                            <input name="pid" th:value="${p.id}" hidden>
+                            <button type="submit" style="border: none; background: #fff"><a class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
+                        </form>
+						<a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" th:if="${notPage == null}">
+				<div class="col-lg-12 text-center">
+					<div class="pagination-wrap">
+						<ul th:if="${id != null}">
+							<li th:each="num : ${#numbers.sequence(1, countPage)}"><a th:href="@{'/shop/'+${id}+'?page='+${num}}" th:text="${num}"></a></li>
+						</ul>
+						<ul th:if="${id == null}">
+							<li th:each="num : ${#numbers.sequence(1, countPage)}"><a th:href="@{'/shop?page='+${num}}" th:text="${num}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- end products -->
+</span>
+</body>
+</html>
